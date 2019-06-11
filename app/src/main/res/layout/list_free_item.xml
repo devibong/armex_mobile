@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clickable="false"
+        android:focusable="false"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clickable="false"
+            android:focusable="false">
+
+            <TextView
+                android:id="@+id/tv_promodate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="false"
+                android:focusable="false"
+                android:padding="5dp"
+                android:text="01 Juni 2019 - 21 July 2019"
+                android:textColor="#003366"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Item Promo :"
+                android:textStyle="bold|italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_item_awal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="Item Code - Name - Awal" />
+
+                <TextView
+                    android:id="@+id/tv_item_akhir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Item Code - Name - Akhir" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_info_promo_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Satuan : Kilo - Qty: 10" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="5dp"
+                android:text="Item Free :"
+                android:textStyle="bold|italic" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_item_free_awal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:text="Free Item Code - Name - Awal" />
+
+                <TextView
+                    android:id="@+id/tv_item_free_akhir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Free Item Code - Name - Akhir" />
+
+
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/tv_info_free_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Satuan : Kilo - Qty: 10" />
+
+            <TextView
+                android:id="@+id/tv_info_promo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="textMultiLine"
+                android:paddingLeft="5dp"
+                android:paddingTop="5dp"
+                android:text="Multiply - Qty max : 100"
+                android:textSize="14sp"
+                android:textStyle="normal|italic" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

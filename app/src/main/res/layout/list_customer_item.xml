@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clickable="false"
+        android:focusable="false"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:contentDescription="Testing World"
+            android:src="@drawable/customer"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clickable="false"
+            android:focusable="false">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:clickable="false"
+                android:focusable="false"
+                android:text="Devi Bastian"
+                android:textColor="#003366" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:focusable="false"
+                android:inputType="textMultiLine"
+                android:text="Puri Permata Blok F no 11 Cipondoh-Cipondoh makmur Tangerang asdasdasdad asd asdasdasda sd asd asd asd asd asda sdasd asd asd asd asdasdasdasdasdas d asdasd asd asd asd asd ad asd adas ad ad"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
