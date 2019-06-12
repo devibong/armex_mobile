@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.amex.mobileapps.model.SettingsModel;
@@ -25,6 +27,10 @@ public class SettingActivity extends AppCompatActivity {
 
 
     public void validateSetting(View v){
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
 
         UploadData postReq = new UploadData(this);
         final String txtHostAddress = ((EditText) findViewById(R.id.txtHostAddress)).getText().toString();
@@ -57,13 +63,17 @@ public class SettingActivity extends AppCompatActivity {
                     Toast.makeText(SettingActivity.this,"Invalid Application ID !",Toast.LENGTH_SHORT).show();
                 }
 
-                //cek APP ID
+                progressBar.setVisibility(View.INVISIBLE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //Host Address Invalid
                 Toast.makeText(SettingActivity.this,"Invalid Host Address !",Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.INVISIBLE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         },postParam, null);
 

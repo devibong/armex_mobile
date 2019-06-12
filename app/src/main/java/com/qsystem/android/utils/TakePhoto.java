@@ -1,8 +1,10 @@
 package com.qsystem.android.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -10,6 +12,8 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
 
@@ -33,6 +37,21 @@ public class TakePhoto {
 
 
     public void takePicture(){
+
+        boolean permissionCheck = (ContextCompat.checkSelfPermission(this.activity, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED);
+        if (permissionCheck == false) {
+            ActivityCompat.requestPermissions(this.activity, new String[]{Manifest.permission.CAMERA}, Const.PERMISSIONS_REQUEST_CAMERA);
+            return;
+        }
+
+        permissionCheck = (ContextCompat.checkSelfPermission(this.activity, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
+        if (permissionCheck == false) {
+            ActivityCompat.requestPermissions(this.activity, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, Const.REQUEST_WRITE_STORAGE);
+            return;
+        }
+
+
+
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(this.activity.getPackageManager()) != null) {
             File photoFile = null;

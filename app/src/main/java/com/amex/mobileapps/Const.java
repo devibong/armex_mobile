@@ -5,6 +5,7 @@ public class Const {
     public static final int PERMISSIONS_REQUEST_CAMERA = 1003;
     public static final int REQUEST_CHECK_LOCATION_SETTINGS = 1004;
     public static final int REQUEST_IMAGE_CAPTURE = 2000;
+    public static final int REQUEST_WRITE_STORAGE = 2010;
 
     public static final String HTTP_REQUEST_SUCCESS = "200";
 

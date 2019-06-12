@@ -78,12 +78,12 @@ public class UploadData {
         RetryPolicy retryPolicy = new RetryPolicy() {
             @Override
             public int getCurrentTimeout() {
-                return 50000;
+                return 30000;
             }
 
             @Override
             public int getCurrentRetryCount() {
-                return 0;
+                return 3;
             }
 
             @Override
