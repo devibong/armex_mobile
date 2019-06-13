@@ -57,9 +57,10 @@ public class TargetAdapater extends ArrayAdapter<ContentValues> {
         String programDate = Utils.formatDate(target.getAsString("fdt_date_start"),"dd MMMM yyyy") + " - " + Utils.formatDate(target.getAsString("fdt_date_end"),"dd MMMM yyyy");
         holder.tvProgramDate.setText(target.getAsString("programDate"));
         holder.tv_program_code.setText(target.getAsString("fst_program_code"));
+        //holder.tv_item.setText(target.getAsString("fst_item_code") + " - " + target.getAsString("fst_item_name"));
         holder.tv_item.setText(target.getAsString("fst_item_code"));
         holder.tv_satuan.setText(target.getAsString("fst_satuan"));
-        String infoAchievement = "Qty achievement/target : " + target.getAsString("fin_qty_target") + "/" + target.getAsString("fin_current_qty");
+        String infoAchievement = "Qty achievement/target : " + target.getAsString("fin_current_qty") + "/" + target.getAsString("fin_qty_target") ;
         holder.tv_info_achievement.setText(infoAchievement);
         return v;
     }

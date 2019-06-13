@@ -54,7 +54,7 @@ public class ItemsAdapater extends ArrayAdapter<ContentValues> {
         }
 
         ContentValues item = listItem.get(position);
-        holder.itemCodeName.setText(item.getAsString("fst_item_code") );
+        holder.itemCodeName.setText(item.getAsString("fst_item_code") + " - " + item.getAsString("fst_item_name"));
         holder.itemSatuan1.setText(item.getAsString("fst_satuan_1"));
         holder.itemSatuan2.setText(item.getAsString("fst_satuan_2"));
         holder.itemSatuan3.setText(item.getAsString("fst_satuan_3"));

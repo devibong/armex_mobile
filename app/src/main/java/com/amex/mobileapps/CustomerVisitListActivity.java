@@ -9,6 +9,7 @@ import android.text.Layout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.amex.mobileapps.adapters.CustomerAdapater;
 import com.amex.mobileapps.model.AppDB;
@@ -28,8 +29,13 @@ public class CustomerVisitListActivity extends AppCompatActivity {
 
         final List<ContentValues> listCustomer = CustomersModel.getScheduleCustomer(db);
 
-        CustomerAdapater adapter = new CustomerAdapater(this, R.layout.list_customer_item,listCustomer);
-        lvCustVisit.setAdapter(adapter);
+        if (listCustomer != null) {
+            CustomerAdapater adapter = new CustomerAdapater(this, R.layout.list_customer_item, listCustomer);
+            lvCustVisit.setAdapter(adapter);
+        }else{
+            Toast.makeText(this,"There is no schedule for today !",Toast.LENGTH_SHORT).show();
+        }
+
 
         lvCustVisit.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

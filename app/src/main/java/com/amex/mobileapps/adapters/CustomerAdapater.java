@@ -25,7 +25,9 @@ public class CustomerAdapater extends ArrayAdapter<ContentValues> {
         this.context=context;
         this.layout=layout;
         this.listCustomer =listCustomer;
-        this.allListCustomer.addAll(listCustomer);
+        if (listCustomer != null){
+            this.allListCustomer.addAll(listCustomer);
+        }
     }
 
 

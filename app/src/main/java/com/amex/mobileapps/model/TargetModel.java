@@ -44,6 +44,7 @@ public class TargetModel {
 
     public static List<ContentValues> getTarget(String fst_cust_code){
         SQLiteDatabase db = new AppDB(GlobalApplication.getAppContext()).getReadableDatabase();
+        //Cursor rs = db.rawQuery("select a.*,b.fst_item_name from " + TABLE_NAME + " a inner join tbl_items b on a.fst_item_code = b.fst_item_code WHERE  fst_cust_code = ?",new String[]{fst_cust_code});
         Cursor rs = db.rawQuery("select * from " + TABLE_NAME + " WHERE  fst_cust_code = ?",new String[]{fst_cust_code});
         List<ContentValues> listTarget = new ArrayList<ContentValues>();
         if(rs.moveToFirst()){
