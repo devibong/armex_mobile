@@ -1,0 +1,31 @@
+/* di javanya */
+        try {
+            String key = "bastian1bastian1";
+            String strIv  ="1231231231231232";
+            String message = "asdkljasdjk ada sdkajksld aksjdfa ds;fasdf asdfjkasdfj   asdfklja sdfja sdfj asdfj kasdfj asd f asdf af as df klasdjflasdjklflaksdlfj;as df asdf asd;fklj asdfkj asd;fklj asdfkj asdfj asdfj ;asdfj asdjkf;asdkjf";
+            //byte[] bytes = Base64.decodeBase64(iv);
+            Cipher ciper = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            SecretKeySpec keySpec = new SecretKeySpec(key.getBytes("UTF-8"),"AES");
+            //IvParameterSpec iv = new IvParameterSpec(ivBytes,0, ciper.getBlockSize());
+            IvParameterSpec iv = new IvParameterSpec(strIv.getBytes(),0, ciper.getBlockSize());
+            //ciper.init(Cipher.DECRYPT_MODE, keySpec, iv);
+            ciper.init(Cipher.ENCRYPT_MODE,keySpec,iv);
+
+            byte[] cipherText = ciper.doFinal(message.getBytes("UTF-8"));
+            String strCipher = Base64.encodeToString(cipherText,0);
+            Log.d("TEST ENCY",strCipher);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+
+        }
+
+        
+        /* php nya
+        $data = "testing 123456";
+        $method = "AES-128-CBC";
+        $key = "bastian1bastian1";
+        $iv= "1231231231231232";
+        echo openssl_decrypt ( $encry,$method ,$key,0,$iv);
+        * */

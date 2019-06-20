@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -30,6 +31,12 @@ import com.qsystem.android.utils.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.nio.charset.StandardCharsets;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -205,18 +212,49 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void testEncryp(View view){
+
+        /* di javanya */
         /*
-        MCrypt mCrypt = new MCrypt("fmssecretkey1234",null);
         try {
-            String strEncode = mCrypt.encrypt("Saya Juga Devi Bastian");
-            Log.d("Encrypt",strEncode);
+            String key = "bastian1bastian1";
+            String strIv  ="1231231231231232";
+            String message = "asdkljasdjk ada sdkajksld aksjdfa ds;fasdf asdfjkasdfj   asdfklja sdfja sdfj asdfj kasdfj asd f asdf af as df klasdjflasdjklflaksdlfj;as df asdf asd;fklj asdfkj asd;fklj asdfkj asdfj asdfj ;asdfj asdjkf;asdkjf";
+            //byte[] bytes = Base64.decodeBase64(iv);
+            Cipher ciper = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            SecretKeySpec keySpec = new SecretKeySpec(key.getBytes("UTF-8"),"AES");
+            //IvParameterSpec iv = new IvParameterSpec(ivBytes,0, ciper.getBlockSize());
+            IvParameterSpec iv = new IvParameterSpec(strIv.getBytes(),0, ciper.getBlockSize());
+            //ciper.init(Cipher.DECRYPT_MODE, keySpec, iv);
+            ciper.init(Cipher.ENCRYPT_MODE,keySpec,iv);
+
+            byte[] cipherText = ciper.doFinal(message.getBytes("UTF-8"));
+            String strCipher = Base64.encodeToString(cipherText,0);
+            Log.d("TEST ENCY",strCipher);
+
+
         }catch (Exception e){
             e.printStackTrace();
+
         }
+
         */
+        /* php nya
+        $data = "testing 123456";
+        $method = "AES-128-CBC";
+        $key = "bastian1bastian1";
+        $iv= "1231231231231232";
+        echo openssl_decrypt ( $encry,$method ,$key,0,$iv);
+        * */
         refreshInfoDesktop();
 
 
+    }
+
+    private static byte[] array_concat(final byte[] a, final byte[] b) {
+        final byte[] c = new byte[a.length + b.length];
+        System.arraycopy(a, 0, c, 0, a.length);
+        System.arraycopy(b, 0, c, a.length, b.length);
+        return c;
     }
 
 
