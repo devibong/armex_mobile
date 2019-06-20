@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amex.mobileapps.Const;
 import com.amex.mobileapps.R;
@@ -58,30 +59,45 @@ public class DownloadData {
         downloadRequest.makeRequest(urlString,new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
-                SQLiteDatabase db = new AppDB(activity).getWritableDatabase();
-                CustomersModel.cleanTable(db);
+
+
                 try{
                     JSONObject objResp = new JSONObject(response);
-                    JSONArray arrCustomer = objResp.getJSONArray("data");
-                    for(int i = 0;i < arrCustomer.length();i++){
-                        JSONObject customer = arrCustomer.getJSONObject(i);
-                        ContentValues contentValues = new ContentValues();
-                        contentValues.put("fin_cust_id",customer.getInt("fin_cust_id"));
-                        contentValues.put("fst_cust_code",customer.getString("fst_cust_code"));
-                        contentValues.put("fst_cust_name",customer.getString("fst_cust_name"));
-                        contentValues.put("fst_cust_address",customer.getString("fst_cust_address"));
-                        contentValues.put("fst_cust_phone",customer.getString("fst_cust_phone"));
-                        contentValues.put("fin_visit_day",customer.getString("fin_visit_day"));
-                        contentValues.put("fst_cust_location",customer.getString("fst_cust_location"));
-                        contentValues.put("fin_price_group_id",customer.getString("fin_price_group_id"));
-                        contentValues.put("fbl_is_new",0);
-                        CustomersModel.insert(db,contentValues);
-                    }
+                    if (objResp.getString("status").equals("OK")){
+                        SQLiteDatabase db = new AppDB(activity).getWritableDatabase();
+                        CustomersModel.cleanTable(db);
+                        JSONArray arrCustomer = objResp.getJSONArray("data");
+                        for(int i = 0;i < arrCustomer.length();i++){
+                            JSONObject customer = arrCustomer.getJSONObject(i);
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put("fin_cust_id",customer.getInt("fin_cust_id"));
+                            contentValues.put("fst_cust_code",customer.getString("fst_cust_code"));
+                            contentValues.put("fst_cust_name",customer.getString("fst_cust_name"));
+                            contentValues.put("fst_cust_address",customer.getString("fst_cust_address"));
+                            contentValues.put("fst_cust_phone",customer.getString("fst_cust_phone"));
+                            contentValues.put("fin_visit_day",customer.getString("fin_visit_day"));
+                            contentValues.put("fst_cust_location",customer.getString("fst_cust_location"));
+                            contentValues.put("fin_price_group_id",customer.getString("fin_price_group_id"));
+                            contentValues.put("fbl_is_new",0);
+                            CustomersModel.insert(db,contentValues);
+                        }
 
-                    Date date = Calendar.getInstance().getTime();
-                    String pattern = "yyyy-MM-dd HH:mm:ss";
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-                    SettingsModel.setValue("LastSyncDateTime",simpleDateFormat.format(date));
+                        Date date = Calendar.getInstance().getTime();
+                        String pattern = "yyyy-MM-dd HH:mm:ss";
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+                        SettingsModel.setValue("LastSyncDateTime",simpleDateFormat.format(date));
+
+                        db.close();
+                        DownloadData.download_items(activity);
+
+                    }else{
+                        String message = objResp.getString("message");
+                        progressBar.setVisibility(View.GONE);
+                        tvProcessStatus.setVisibility(View.GONE);
+                        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
+                    }
 
 
                     //activity.finish();
@@ -90,8 +106,8 @@ public class DownloadData {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                db.close();
-                DownloadData.download_items(activity);
+
+
                 //progressBar.setVisibility(View.GONE);
                 //activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 

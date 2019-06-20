@@ -63,7 +63,12 @@ public class CustInfoActivity extends AppCompatActivity {
     }
 
     public void takePhoto(View view){
-        takePhoto.takePicture();
+
+        if (CheckinLogModel.statusClear(this.fstCustCode)) {
+            takePhoto.takePicture();
+        }else{
+            Toast.makeText(this,"Please checkout last customer to continue !",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void checkIn(View view){
@@ -98,7 +103,7 @@ public class CustInfoActivity extends AppCompatActivity {
 
                 Toast.makeText(CustInfoActivity.this,"Data Location Saved !",Toast.LENGTH_SHORT).show();
 
-                UploadDataService.start();
+                //UploadDataService.start();
 
                 //String message = "Add checkin fo cust : " + tvCustId.getText().toString()   + " -  " + tvCustName.getText().toString() + " photo :" + filePath  +  ", Location :" + location.getLatitude() + "," + location.getLongitude() ;
                 //String message = "Check in location !";
@@ -108,6 +113,12 @@ public class CustInfoActivity extends AppCompatActivity {
 
 
     }
+    public void checkOut(View view){
+        CheckinLogModel.checkOut();
+        UploadDataService.start();
+        Toast.makeText(this,"Checkout success !",Toast.LENGTH_SHORT).show();
+    }
+
 
     public void showPromotion(View view){
         view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.image_click));

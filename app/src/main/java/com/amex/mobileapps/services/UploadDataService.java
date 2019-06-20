@@ -123,6 +123,7 @@ public class UploadDataService extends IntentService {
             postParams.put("fin_id",checkInLogs.getAsString("fin_id"));
             postParams.put("fst_cust_code",checkInLogs.getAsString("fst_cust_code"));
             postParams.put("fdt_checkin_datetime",checkInLogs.getAsString("fdt_checkin_datetime"));
+            postParams.put("fdt_checkout_datetime",checkInLogs.getAsString("fdt_checkout_datetime"));
             postParams.put("fst_checkin_location",checkInLogs.getAsString("fst_checkin_location"));
 
             String imagePath = checkInLogs.getAsString("fst_photo_path");

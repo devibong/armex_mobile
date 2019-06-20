@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.qsystem.android.GlobalApplication;
+import com.qsystem.android.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,14 @@ public class CheckinLogModel {
             "(fin_id INTEGER PRIMARY KEY," +
             "fst_cust_code TEXT," +
             "fdt_checkin_datetime TEXT," +
+            "fdt_checkout_datetime TEXT," +
             "fst_checkin_location TEXT," +
             "fst_photo_path TEXT);";
+    }
+
+    public static void dropTable(SQLiteDatabase db){
+        String ssql = "DROP TABLE " + TABLE_NAME;
+        db.execSQL(ssql);
     }
 
 
@@ -51,6 +58,7 @@ public class CheckinLogModel {
             checkinLog.put("fin_id",rs.getInt(rs.getColumnIndex("fin_id")));
             checkinLog.put("fst_cust_code",rs.getString(rs.getColumnIndex("fst_cust_code")));
             checkinLog.put("fdt_checkin_datetime",rs.getString(rs.getColumnIndex("fdt_checkin_datetime")));
+            checkinLog.put("fdt_checkout_datetime",rs.getString(rs.getColumnIndex("fdt_checkout_datetime")));
             checkinLog.put("fst_checkin_location",rs.getString(rs.getColumnIndex("fst_checkin_location")));
             checkinLog.put("fst_photo_path",rs.getString(rs.getColumnIndex("fst_photo_path")));
         }
@@ -67,14 +75,16 @@ public class CheckinLogModel {
 
 
     public static List<ContentValues> getRecords(SQLiteDatabase db){
-        Cursor rs = db.rawQuery("select * from " + TABLE_NAME + " order by fin_id",null);
+        Cursor rs = db.rawQuery("select * from " + TABLE_NAME + " where fdt_checkout_datetime IS NOT NULL order by fin_id",null);
         List<ContentValues> listCheckin = new ArrayList<ContentValues>();
         if(rs.moveToFirst()){
             do{
+
                 ContentValues checkinLog = new ContentValues();
                 checkinLog.put("fin_id",rs.getInt(rs.getColumnIndex("fin_id")));
                 checkinLog.put("fst_cust_code",rs.getString(rs.getColumnIndex("fst_cust_code")));
                 checkinLog.put("fdt_checkin_datetime",rs.getString(rs.getColumnIndex("fdt_checkin_datetime")));
+                checkinLog.put("fdt_checkout_datetime",rs.getString(rs.getColumnIndex("fdt_checkout_datetime")));
                 checkinLog.put("fst_checkin_location",rs.getString(rs.getColumnIndex("fst_checkin_location")));
                 checkinLog.put("fst_photo_path",rs.getString(rs.getColumnIndex("fst_photo_path")));
 
@@ -97,5 +107,24 @@ public class CheckinLogModel {
         }
     }
 
+    public static boolean statusClear(String fst_cust_code){
+        SQLiteDatabase db = new AppDB(GlobalApplication.getAppContext()).getReadableDatabase();
+        Cursor rs = db.rawQuery("select count(*) as ttl_row from " + TABLE_NAME + " where fdt_checkout_datetime IS NULL and fst_cust_code != ?",new String[]{fst_cust_code} );
+        rs.moveToFirst();
 
+        if (rs.getInt(rs.getColumnIndex("ttl_row")) == NULL){
+            return true;
+        }else {
+            if (rs.getInt(rs.getColumnIndex("ttl_row")) == 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+
+    public static void checkOut(){
+        SQLiteDatabase db = new AppDB(GlobalApplication.getAppContext()).getReadableDatabase();
+        db.execSQL("update " + TABLE_NAME + " set fdt_checkout_datetime = ? where fdt_checkout_datetime is null",new String[]{Utils.getCurrentDatetime()});
+    }
 }

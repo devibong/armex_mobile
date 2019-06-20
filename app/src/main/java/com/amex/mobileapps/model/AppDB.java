@@ -11,7 +11,7 @@ import com.amex.mobileapps.model.CustomersModel;
 
 public class AppDB extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String DATABASE_NAME = "MyApp.db";
 
     public AppDB(Context context) {
@@ -35,7 +35,12 @@ public class AppDB extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SettingsModel.getSqlCreate());
+        //db.execSQL(SettingsModel.getSqlCreate());
+        //Add Checkout
+        if (oldVersion == 1 && newVersion == 2){
+            CheckinLogModel.dropTable(db);
+            db.execSQL(CheckinLogModel.getSqlCreate());
+        }
     }
 
 }
