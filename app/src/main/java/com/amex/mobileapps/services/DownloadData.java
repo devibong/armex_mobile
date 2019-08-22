@@ -59,8 +59,6 @@ public class DownloadData {
         downloadRequest.makeRequest(urlString,new Response.Listener<String>(){
             @Override
             public void onResponse(String response) {
-
-
                 try{
                     JSONObject objResp = new JSONObject(response);
                     if (objResp.getString("status").equals("OK")){
@@ -187,7 +185,7 @@ public class DownloadData {
                         contentValues.put("fin_selling_price2J",item.getDouble("fin_selling_price2J"));
                         contentValues.put("fin_selling_price3J",item.getDouble("fin_selling_price3J"));
                         contentValues.put("fst_memo",item.getString("fst_memo"));
-
+                        Log.d("Download Item","downlaod data item ke " + i);
                         ItemsModel.insert(db,contentValues);
 
                     }

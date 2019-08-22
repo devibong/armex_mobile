@@ -129,7 +129,7 @@ public class UploadDataService extends IntentService {
             String imagePath = checkInLogs.getAsString("fst_photo_path");
             //Bitmap image = BitmapFactory.decodeFile(imagePath);
             //image.recycle();
-            Bitmap resizeImage = TakePhoto.getResizedBitmap(imagePath,500);
+            Bitmap resizeImage = TakePhoto.getResizedBitmap(imagePath,200);
             ContentValues uploadFile = null;
             if (resizeImage != null){
                 resizeImage.recycle();

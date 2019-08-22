@@ -79,6 +79,13 @@ public class CustInfoActivity extends AppCompatActivity {
             return;
         }
 
+        final ImageView ivCheckIn = findViewById(R.id.ivCheckIn);
+
+        if (ivCheckIn.getDrawable() == null){
+            Toast.makeText(this,"Please take a picture before chekin location !",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         //Get Location
         ServiceLocation serviceLocation = new ServiceLocation(this,ServiceLocation.PRIORITY_HIGH_ACCURACY);
         serviceLocation.updateCurrentLocation();
@@ -90,6 +97,7 @@ public class CustInfoActivity extends AppCompatActivity {
                 ContentValues dataLog = new ContentValues();
 
                 //String custId = tvCustId.getText().toString();
+
                 //dataLog.put("fin_cust_id",Integer.parseInt(custId));
                 dataLog.put("fst_cust_code",fstCustCode);
 
@@ -98,7 +106,7 @@ public class CustInfoActivity extends AppCompatActivity {
                 dataLog.put("fst_photo_path", filePath);
                 CheckinLogModel.insert(db,dataLog);
                 db.close();
-                ImageView ivCheckIn = findViewById(R.id.ivCheckIn);
+
                 ivCheckIn.setImageDrawable(null);
 
                 Toast.makeText(CustInfoActivity.this,"Data Location Saved !",Toast.LENGTH_SHORT).show();
